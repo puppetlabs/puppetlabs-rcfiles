@@ -1,0 +1,83 @@
+# #!/bin/zsh
+snippet define
+	# Define: ${1:mydefinedtype}
+	#
+	#   ${2:defined type description goes here.}
+	#
+	# Parameters:
+	#
+	# Actions:
+	#
+	# Requires:
+	#
+	# Sample Usage:
+	#
+	define $1($3) {
+	  ${4:# statements}
+	}
+	# EOF
+snippet #!
+	#! /usr/bin/env puppet
+
+snippet if
+	if (${1:condition}) {
+	    ${2:# statements}
+	} 
+snippet case
+	ca se ${1:$operatingsystem} {
+	    ${2:"centos", "redhat"}: {
+	        ${3:# statements about $2}
+	    }
+	    "${4:default}": {
+	        ${5:# statements about $4}
+	     }
+	}${6}
+snippet class
+	# Class: ${1:myclass}
+	#
+	#   ${2:class description goes here.}
+	#
+	# Parameters:
+	#
+	# Actions:
+	#
+	# Requires:
+	#
+	# Sample Usage:
+	#
+	class $1 {
+		$module = "$1"
+	  ${3:# statements}
+	}
+snippet class::
+	# Class: ${1:parentclass}::${2:myclass}
+	#
+	#   ${3:class description goes here.}
+	#
+	# Parameters:
+	#
+	# Actions:
+	#
+	# Requires:
+	#
+	# Sample Usage:
+	#
+	class $1::$2 inherits $1 {
+		$module = "$1"
+		${3:# statements}
+	}
+snippet File
+	File {
+	    owner => "${1:root}",
+	    group => "${2:$1}",
+	    mode  => "${3:0644}",
+	}${4}
+snippet file
+	file {
+	    "${1:/dev/null}":
+	        source => "puppet:///modules/${module}${2:$1}",${3}
+	}
+snippet :
+	"${1:title}":${2}
+snippet >
+	${1:attribute} => ${2:value},${3}
