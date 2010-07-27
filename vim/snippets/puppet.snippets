@@ -1,4 +1,16 @@
 # #!/bin/zsh
+snippet user
+	user {
+		"${1:nobody}":
+		  ensure     => "${2:present}",
+			home       => "${3:/var/lib/$1}",
+			uid        => "${4:333}",
+			gid        => "${5:$4}",
+			comment    => "${6:$1 account}",
+			membership => "${7:minimum}",
+			password   => '!!',
+			shell      => "${8:/bin/bash, /bin/false, /sbin/nologin, /bin/zsh, /bin/tcsh}",
+	}
 snippet define
 	# Define: ${1:mydefinedtype}
 	#
@@ -68,14 +80,15 @@ snippet class::
 	}
 snippet File
 	File {
-	    owner => "${1:root}",
-	    group => "${2:$1}",
-	    mode  => "${3:0644}",
+	  owner => "${1:0}",
+	  group => "${2:$1}",
+	  mode  => "${3:0644}",
 	}${4}
 snippet file
 	file {
-	    "${1:/dev/null}":
-	        source => "puppet:///modules/${module}${2:$1}",${3}
+	  "${1:/dev/null}":
+	    source  => "puppet:///modules/${module}${2:$1}",
+			recurse => "${3:true, false}"
 	}
 snippet :
 	"${1:title}":${2}
