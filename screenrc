@@ -1,0 +1,53 @@
+# Jeff McCune <jeff@puppetlabs.com>
+# 2010-07-30
+# GNU Screen configuration file
+
+defutf8 on
+defflow off
+vbell off
+autodetach on
+startup_message off
+defscrollback 10000
+
+# The hard status is updated by the zsh prompt commands.
+# %t is populated by the shell sending 'print -nR $'\033k'$1$'\033'\\'
+# %h is populated by the shell sending 'print -nR $'\033]0;'$2$'\a''
+hardstatus string "%H %n%?: %t%? %h"
+
+# JJM We need to use a TERM entry that supports 256 colors.
+# use tput colors to check if it responds 8 or 256
+term screen-256color
+
+# Fix numpad in nested screens
+termcapinfo screen* ks@:ke@
+
+# This enables hardstatus support in screens.
+termcapinfo screen* 'hs:ts=\E]2;:fs=\007:ds=\E]2;screen\007'
+# This enables hardstatus support in screens.
+termcapinfo xterm* 'hs:ts=\E]2;:fs=\007:ds=\E]2;screen\007'
+
+## JJM: 2009-09-16 This is not necessary when TERM=xterm-256color
+# terminfo and termcap for nice 256 color terminal
+
+# allow bold colors - necessary for some reason
+attrcolor b ".I"
+# erase background with current bg color
+defbce "on"
+
+## JJM NOTE: This has issues!  I see no reason to set this, despite
+## what I've read out on the web.
+## Have proper terminfo databases installed for xterm and xterm-256color
+# tell screen how to set colors. AB = background, AF=foreground
+# termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+
+# White on Grey:                %{= Kd}
+# Hostname:                     %{g}%H%{-}
+# Windows before current:       %?%-Lw%?
+# Current Window:               %{c}(%{W}%n%f %t%{-})%{-}
+# Windows after current:        %?%+Lw%?
+# xterm hardstatus              %= %{d}%?%{C}[%{W}%h%{-}] %?
+
+
+# JJM These caption lines provide the bottom "tab" bar.
+# caption string "%{= Kd} %{g}%H%{-} %?%-Lw%?%{c}(%{W}%n%f %t%{-})%{-}%?%+Lw%?%= %{d}%?%{C}[%{W}%h%{-}] %?"
+caption always "%{= bW} %{Y}%H%{-} %?%-Lw%?%{M}{%{Y}%n%f %{-}%{C}%t%{-}}%{-}%?%+Lw%?%= %{d}%?%{C}[%{W}%t %h%{-}] %?"
