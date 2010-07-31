@@ -1,4 +1,14 @@
 # #!/bin/zsh
+snippet [
+	[ ${1} ]
+snippet '
+	'${1}'
+snippet "
+	"${1}"
+snippet {
+	{ ${1} }
+snippet notify
+	notify { "${1:message}": }
 snippet user
 	user {
 		"${1:nobody}":
